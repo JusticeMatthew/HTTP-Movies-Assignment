@@ -79,6 +79,12 @@ body {
 .home-button {
   padding: 5px 10px;
   background-color: lightskyblue;
+  margin: 5px;
+}
+
+.new-button {
+  padding: 5px 20px;
+  background-color: lightskyblue;
 }
 
 .movie-warning {

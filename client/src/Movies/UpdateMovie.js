@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import MovieCard from './MovieCard';
 
@@ -50,8 +51,8 @@ export default function UpdateMovie() {
   };
 
   return (
-    <>
-      <h2>Update Movie Info</h2>
+    <FormContainer>
+      <h2>Update Movie Info:</h2>
       <form onSubmit={submitHandler}>
         <input
           label='title'
@@ -79,8 +80,23 @@ export default function UpdateMovie() {
         />
         <br />
         <button>Save</button>
-        <MovieCard movie={movie} />
       </form>
-    </>
+      <MovieCard className='movie-card' movie={movie} />
+    </FormContainer>
   );
 }
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movie-card {
+    min-width: 70%;
+  }
+`;

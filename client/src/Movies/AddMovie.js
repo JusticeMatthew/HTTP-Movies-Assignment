@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 
 const initialValues = {
   title: '',
@@ -21,6 +22,18 @@ export default function AddMovie() {
     });
   };
 
+  const handleStarsChange = (e) => {
+    let starsArr = e.target.value.split(',');
+    setMovie({
+      ...movie,
+      stars: starsArr,
+    });
+  };
+
+  useEffect(() => {
+    console.log(movie);
+  }, [movie]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     axios
@@ -34,7 +47,7 @@ export default function AddMovie() {
   };
 
   return (
-    <>
+    <FormContainer>
       <h2>Add New Movie</h2>
       <form onSubmit={submitHandler}>
         <input
@@ -62,8 +75,31 @@ export default function AddMovie() {
           value={movie.metascore}
         />
         <br />
+        <input
+          type='text'
+          name='stars'
+          placeholder='Stars (Separate with a comma)'
+          onChange={handleStarsChange}
+          value={movie.stars}
+        />
+        <br />
         <button>Add</button>
       </form>
-    </>
+    </FormContainer>
   );
 }
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    min-width: 300px;
+  }
+`;
