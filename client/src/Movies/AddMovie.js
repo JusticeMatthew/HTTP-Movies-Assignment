@@ -1,34 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import MovieCard from './MovieCard';
-
 const initialValues = {
-  id: '',
   title: '',
   director: '',
   metascore: '',
   stars: [],
 };
 
-export default function UpdateMovie() {
+export default function AddMovie() {
   const [movie, setMovie] = useState(initialValues);
 
-  const { id } = useParams();
   const { push } = useHistory();
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/movies/${id}`)
-      .then((res) => {
-        setMovie(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    /*eslint-disable-next-line*/
-  }, []);
 
   const handleChange = (e) => {
     setMovie({
@@ -40,7 +24,7 @@ export default function UpdateMovie() {
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:5000/api/movies/${id}`, movie)
+      .post(`http://localhost:5000/api/movies/`, movie)
       .then((res) => {
         push(`/`);
       })
@@ -51,7 +35,7 @@ export default function UpdateMovie() {
 
   return (
     <>
-      <h2>Update Movie Info</h2>
+      <h2>Add New Movie</h2>
       <form onSubmit={submitHandler}>
         <input
           label='title'
@@ -78,8 +62,7 @@ export default function UpdateMovie() {
           value={movie.metascore}
         />
         <br />
-        <button>Save</button>
-        <MovieCard movie={movie} />
+        <button>Add</button>
       </form>
     </>
   );
