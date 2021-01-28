@@ -30,10 +30,6 @@ export default function AddMovie() {
     });
   };
 
-  useEffect(() => {
-    console.log(movie);
-  }, [movie]);
-
   const submitHandler = (e) => {
     e.preventDefault();
     axios
